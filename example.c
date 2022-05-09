@@ -16,7 +16,10 @@ int main() {
     wat2wasm(&wat, &wasm_bytes);
     wasm_byte_vec_delete(&wat);
 
-    wasm_engine_t* engine = wasm_engine_new();
+    wasm_config_t* config = wasm_config_new();
+    wasm_config_set_compiler(config, SINGLEPASS);
+
+    wasm_engine_t* engine = wasm_engine_new_with_config(config);
     wasm_store_t* store = wasm_store_new(engine);
 
     wasm_module_t* module = wasm_module_new(store, &wasm_bytes);
